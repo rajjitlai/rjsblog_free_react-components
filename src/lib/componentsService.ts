@@ -3,6 +3,7 @@ import type { Models } from 'appwrite';
 
 // Component document structure in Appwrite
 // Note: Store code.tsx and code.css as separate string attributes in Appwrite
+// Tags are stored as comma-separated string in Appwrite (e.g., "button,gradient,animated")
 export interface ComponentDocument {
   $id?: string;
   $createdAt?: string;
@@ -10,7 +11,7 @@ export interface ComponentDocument {
   name: string;
   description: string;
   category: string;
-  tags: string[];
+  tags: string; // Stored as comma-separated string in Appwrite
   code: string; // TSX code stored as string
   css?: string; // CSS code stored as string (optional)
   preview?: string; // Component preview identifier (e.g., 'gradient-button')
@@ -25,12 +26,17 @@ export const transformToComponentItem = (doc: ComponentDocument) => {
   // This allows components to have readable URLs like /component/gradient-button
   const componentId = doc.preview || doc.$id || '';
 
+  // Convert tags from comma-separated string to array
+  const tagsArray = doc.tags
+    ? doc.tags.split(',').map(tag => tag.trim()).filter(tag => tag.length > 0)
+    : [];
+
   return {
     id: componentId,
     name: doc.name,
     description: doc.description,
     category: doc.category,
-    tags: doc.tags,
+    tags: tagsArray,
     code: {
       tsx: doc.code,
       css: doc.css,
@@ -44,17 +50,23 @@ export const transformToComponentItem = (doc: ComponentDocument) => {
 export const createComponent = async (
   component: Omit<ComponentDocument, '$id' | '$createdAt' | '$updatedAt'> & {
     code?: { tsx: string; css?: string };
+    tags?: string | string[]; // Accept both string and array
   }
 ) => {
   try {
+    // Convert tags to comma-separated string if it's an array
+    const tagsString = Array.isArray(component.tags)
+      ? component.tags.join(',')
+      : component.tags || '';
+
     // Flatten code structure for Appwrite storage
-    const componentData: ComponentDocument = {
+    const componentData = {
       name: component.name,
       description: component.description,
       category: component.category,
-      tags: component.tags,
+      tags: tagsString,
       code: component.code?.tsx || component.code || '',
-      css: component.code?.css || component.css,
+      css: component.code?.css || component.css || '',
       preview: component.preview,
       featured: component.featured || false,
       views: component.views || 0,

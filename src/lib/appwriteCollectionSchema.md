@@ -19,9 +19,11 @@ Create a new collection in your Appwrite database with the following attributes:
    - Required: Yes
    - Options: buttons, cards, forms, navigation, feedback
 
-4. **tags** (String[], required)
-   - Array of strings
+4. **tags** (String, required)
+   - Size: 500
    - Required: Yes
+   - Store as comma-separated string (e.g., "button,gradient,animated")
+   - The application will convert this to an array when reading
 
 5. **code** (String, required)
    - Size: 10000
