@@ -7,21 +7,34 @@ import CodeBlock from '@/components/CodeBlock';
 import { Button } from '@/components/ui/button';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { Badge } from '@/components/ui/badge';
-import { componentsData } from '@/data/components';
+import { useComponent } from '@/hooks/useComponents';
 import { previewComponents } from '@/components/previews';
 
 const ComponentDetail = () => {
   const { id } = useParams<{ id: string }>();
   const [isDarkPreview, setIsDarkPreview] = useState(true);
-  
-  const component = componentsData.find((c) => c.id === id);
-  const PreviewComponent = id ? previewComponents[id] : null;
 
-  if (!component) {
+  const { data: component, isLoading, error } = useComponent(id);
+  const PreviewComponent = component?.preview ? previewComponents[component.preview] : null;
+
+  if (isLoading) {
+    return (
+      <Layout>
+        <div className="container py-20 flex items-center justify-center">
+          <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-accent"></div>
+        </div>
+      </Layout>
+    );
+  }
+
+  if (error || !component) {
     return (
       <Layout>
         <div className="container py-20 text-center">
           <h1 className="text-2xl font-bold text-foreground mb-4">Component not found</h1>
+          <p className="text-muted-foreground mb-4">
+            {error ? 'Error loading component. Please try again later.' : 'The component you are looking for does not exist.'}
+          </p>
           <Link to="/">
             <Button variant="outline">Go back home</Button>
           </Link>
@@ -105,11 +118,17 @@ const ComponentDetail = () => {
                 </Button>
               </div>
               <div
-                className={`min-h-[300px] p-8 flex items-center justify-center transition-colors duration-300 ${
-                  isDarkPreview ? 'bg-bg-main' : 'bg-gray-100'
-                }`}
+                className={`min-h-[300px] p-8 flex items-center justify-center transition-colors duration-300 ${isDarkPreview ? 'bg-bg-main' : 'bg-gray-100'
+                  }`}
               >
-                {PreviewComponent && <PreviewComponent />}
+                {PreviewComponent ? (
+                  <PreviewComponent />
+                ) : (
+                  <div className="text-center text-muted-foreground">
+                    <p className="text-sm">Preview not available</p>
+                    <p className="text-xs mt-2">Check the code tab to see the component code</p>
+                  </div>
+                )}
               </div>
             </div>
           </motion.div>

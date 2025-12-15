@@ -4,15 +4,39 @@ import Layout from '@/components/layout/Layout';
 import ComponentCard from '@/components/ComponentCard';
 import SearchBar from '@/components/SearchBar';
 import CategoryFilter from '@/components/CategoryFilter';
-import { componentsData } from '@/data/components';
+import { useComponents, useComponentsByCategory, useSearchComponents } from '@/hooks/useComponents';
 
 const Index = () => {
   const [searchQuery, setSearchQuery] = useState('');
   const [activeCategory, setActiveCategory] = useState('all');
 
+  // Fetch components based on filters
+  const { data: allComponents = [], isLoading: isLoadingAll } = useComponents();
+  const { data: categoryComponents = [], isLoading: isLoadingCategory } = useComponentsByCategory(activeCategory);
+  const { data: searchResults = [], isLoading: isLoadingSearch } = useSearchComponents(searchQuery);
+
+  const isLoading = isLoadingAll || isLoadingCategory || isLoadingSearch;
+
+  // Determine which data to use
+  const componentsToFilter = useMemo(() => {
+    if (searchQuery.trim()) {
+      return searchResults;
+    }
+    if (activeCategory === 'all') {
+      return allComponents;
+    }
+    return categoryComponents;
+  }, [searchQuery, activeCategory, allComponents, categoryComponents, searchResults]);
+
+  // Client-side filtering for search (if Appwrite search doesn't cover everything)
   const filteredComponents = useMemo(() => {
-    return componentsData.filter((component) => {
+    if (searchQuery.trim() && searchResults.length > 0) {
+      return searchResults;
+    }
+
+    return componentsToFilter.filter((component) => {
       const matchesSearch =
+        !searchQuery.trim() ||
         component.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
         component.description.toLowerCase().includes(searchQuery.toLowerCase()) ||
         component.tags.some((tag) =>
@@ -22,7 +46,7 @@ const Index = () => {
         activeCategory === 'all' || component.category === activeCategory;
       return matchesSearch && matchesCategory;
     });
-  }, [searchQuery, activeCategory]);
+  }, [searchQuery, activeCategory, componentsToFilter, searchResults]);
 
   return (
     <Layout>
@@ -65,7 +89,11 @@ const Index = () => {
             />
           </div>
 
-          {filteredComponents.length > 0 ? (
+          {isLoading ? (
+            <div className="flex items-center justify-center py-20">
+              <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-accent"></div>
+            </div>
+          ) : filteredComponents.length > 0 ? (
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
               {filteredComponents.map((component, index) => (
                 <ComponentCard
