@@ -1,4 +1,4 @@
-# 🎨 RJ's Blog Free React Components
+# RJ's Blog Free React Components
 
 A beautiful collection of **free, reusable React components** to help developers quickly build modern and functional web applications. All components are production-ready, customizable, and easy to integrate.
 
@@ -7,16 +7,16 @@ A beautiful collection of **free, reusable React components** to help developers
 ![License](https://img.shields.io/badge/License-MIT-green)
 ![Version](https://img.shields.io/badge/version-1.0.0-blue)
 
-## ✨ Features
+## Features
 
-- 🎯 **12+ Ready-to-use Components** - Dropdowns, Headers, Menus, Sliders, and more
-- 🎨 **Modern Design** - Beautiful, polished UI components
-- 📱 **Responsive** - Works seamlessly on all devices
-- 🔧 **Easy to Customize** - Well-structured code with clear styling
-- ⚡ **Fast & Lightweight** - Built with React and modern tools
-- 🎭 **Multiple Variants** - Different styles for the same component type
+- **12+ Ready-to-use Components** - Dropdowns, Headers, Menus, Sliders, and more
+- **Modern Design** - Beautiful, polished UI components
+- **Responsive** - Works seamlessly on all devices
+- **Easy to Customize** - Well-structured code with clear styling
+- **Fast & Lightweight** - Built with React and modern tools
+- **Multiple Variants** - Different styles for the same component type
 
-## 📦 Components Included
+## Components Included
 
 ### Dropdowns
 - **Dropdown 01** - Simple account dropdown with profile menu
@@ -38,7 +38,7 @@ A beautiful collection of **free, reusable React components** to help developers
 - **Notifications** - Tabbed notification system with filtering
 - **Page Transition** - Smooth page transitions with loading bars
 
-## 🚀 Getting Started
+## Getting Started
 
 ### Prerequisites
 
@@ -71,7 +71,7 @@ A beautiful collection of **free, reusable React components** to help developers
 5. **Open your browser:**
    Navigate to `http://localhost:5173` (or the port shown in your terminal)
 
-## 📖 Usage
+## Usage
 
 ### Viewing Components
 
@@ -111,7 +111,7 @@ function MyApp() {
 }
 ```
 
-## 🗂️ Project Structure
+## Project Structure
 
 ```
 rjsblog_free_react-components/
@@ -132,14 +132,14 @@ rjsblog_free_react-components/
 └── README.md
 ```
 
-## 🛠️ Available Scripts
+## Available Scripts
 
 - `npm run dev` - Start development server
 - `npm run build` - Build for production
 - `npm run preview` - Preview production build
 - `npm run lint` - Run ESLint
 
-## 🚀 Deployment
+## Deployment
 
 ### Deploying to Vercel
 
@@ -169,7 +169,7 @@ npm run build
 
 The production build will be in the `dist` directory, ready to deploy to any static hosting service.
 
-## 🎨 Customization
+## Customization
 
 All components are designed to be easily customizable:
 
@@ -178,7 +178,7 @@ All components are designed to be easily customizable:
 3. **Content**: Update the component JSX to change content
 4. **Colors**: Use CSS variables or modify the color values directly
 
-## 📝 Component Details
+## Component Details
 
 ### Dropdown Components
 - Fully functional with click-outside-to-close
@@ -195,7 +195,7 @@ All components are designed to be easily customizable:
 - Router support for SPA navigation
 - Beautiful animations and transitions
 
-## 🤝 Contributing
+## Contributing
 
 Contributions are what make the open-source community such an amazing place to learn, inspire, and create. Any contributions you make are **greatly appreciated**.
 
@@ -207,13 +207,13 @@ To contribute:
 4. **Push to the Branch** (`git push origin feature/AmazingFeature`)
 5. **Open a Pull Request**
 
-## 📄 License
+## License
 
 This project is licensed under the MIT License - see the [LICENSE](License) file for details.
 
 Copyright (c) 2024 Rajjit Laishram and RJ's Blog.
 
-## 👤 Author
+## Author
 
 **Rajjit Laishram** - [RJ's Blog](https://rjsblog.in)
 
@@ -221,7 +221,7 @@ Copyright (c) 2024 Rajjit Laishram and RJ's Blog.
 - Project Link: [https://github.com/rajjitlai/rjsblog_free_react-components](https://github.com/rajjitlai/rjsblog_free_react-components)
 - Live Demo: [https://reactcomponents.rjsblog.in](https://reactcomponents.rjsblog.in)
 
-## 🙏 Acknowledgments
+## Acknowledgments
 
 - Built with [React](https://reactjs.org/)
 - Powered by [Vite](https://vitejs.dev/)
@@ -231,4 +231,4 @@ Copyright (c) 2024 Rajjit Laishram and RJ's Blog.
 
 ---
 
-⭐ **Star this repo if you find it helpful!**
+**Star this repo if you find it helpful!**
